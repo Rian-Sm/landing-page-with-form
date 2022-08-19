@@ -1,5 +1,6 @@
 export const styles = {
-	input:{
-			
-	}
+  container: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
 }
