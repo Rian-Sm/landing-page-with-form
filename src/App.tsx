@@ -15,8 +15,8 @@ export default function App() {
         <div  style={styles.description}>
           
           <Logo style={styles.logo}></Logo> 
-
           <Frase></Frase> 
+          <div style={styles.ilustrationPhone}/>
         </div>
 
       </div>

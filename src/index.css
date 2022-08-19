@@ -6,6 +6,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+input {
+  margin: 0;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -26,5 +30,10 @@ code {
   font-family: "Montserrat-Light";
   src: local("Montserrat-Light"),
     url('./assets/fonts/Montserrat-Light.ttf') format("truetype");
+}
+
+p {
+  font-family:'Montserrat-Medium';
+  margin: 0;
 }
 
