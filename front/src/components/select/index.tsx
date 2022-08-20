@@ -6,7 +6,7 @@ interface IInputProps {
   text:string,
 }
 
-export function Select({id, text, ...rest}:IInputProps & React.InputHTMLAttributes<HTMLInputElement> ){
+export function Checkbox({id, text, ...rest}:IInputProps & React.InputHTMLAttributes<HTMLInputElement> ){
   return (
     <div style={styles.container}>   
       <label style={{ display:'flex', flexDirection: 'row'}} htmlFor={id}>
