@@ -8,6 +8,6 @@ const port = process.env.PORT || 3001;
 const myServer = http.createServer(routes);
 
  myServer.listen(port, () => {
-    console.log(`Server is running on port 3000. Go to http://localhost:${port}/`)
+    console.log(`Server is running on port ${port}. Go to http://localhost:${port}/`)
  });
  

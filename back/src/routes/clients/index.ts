@@ -1,21 +1,22 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { create } from "../../controller/client";
 import { ICliente } from "../../model/client";
-import { error404, IResponseCreate, messageSucess, responseMSG } from "../../util/responseMsg";
+import { error404, IResponseCreate, messageSucess, messages } from "../../util/responseMsg";
 
 export  const clientsRouter = async (req: IncomingMessage, res: ServerResponse) => {
     let notFound = true;
-    let dataResponse = {} as IResponseCreate;
-    let status = 200;
+    
 
     async function callbackData(error:any, value:number){
         console.log("ERRO", error, value);
+        let dataResponse = {} as IResponseCreate;
+        let status = 200;
+
         dataResponse = {status: true, message:messageSucess.create, response:{id:value}} as unknown as IResponseCreate;
-        status = 200;
         if (error){
             dataResponse = { status: false, message:error.toString(), response:{}} as unknown as IResponseCreate;
         }
-        responseMSG(res, status, dataResponse); 
+        messages.responseMSG(res, status, dataResponse); 
     }
 
     const regexRoute = {
@@ -49,5 +50,5 @@ export  const clientsRouter = async (req: IncomingMessage, res: ServerResponse) 
         return
     }
 
-    return error404(res)  
+    return messages.error404(res)  
 }

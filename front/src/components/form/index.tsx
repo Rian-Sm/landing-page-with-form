@@ -1,14 +1,15 @@
 import React, { useCallback, useState } from 'react';
+import { salvarDadosCliente } from '../../service';
 import { Button } from '../button';
 import { Input } from '../input';
 import { Checkbox } from '../select';
 import { styles } from './styles';
 
-interface IForm {
+export interface IForm {
   name:string,
   mail:string,
   phone:string,
-  authorization:boolean,
+  notification:boolean,
 }
 
 const limitations: { [key: string]: number } = {
@@ -18,19 +19,27 @@ const limitations: { [key: string]: number } = {
 }
 
 export function Form (){
-  const [form, setForm] = useState<IForm>({name:'',mail:'',phone:'',authorization:false});
+  const [form, setForm] = useState<IForm>({name:'',mail:'',phone:'',notification:false});
   
   const handleSubmit = useCallback((event:React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
     const {mail, name, phone} = form;
-    if (!mail || !name || !phone) return; 
+    console.log(mail, name, phone.replaceAll(/\D/g, ''));
+
+
+    if (!mail || !name || !phone || !(phone.replaceAll(/\D/g, '').length===12)) {
+      console.log('ERRO');
+      return; 
+    }
+    salvarDadosCliente({...form, phone:phone.replaceAll(/\D/g, '')});
+
   },[form]);
 
   const handleInput = useCallback(({currentTarget:{value, id}}:React.ChangeEvent<HTMLInputElement>)=>{
    
     let newValue = value;
     if (id == 'nome'){
-      newValue = value.replaceAll(/\d|[!@#$%¨&*-_=+/()`´~^?;:'",.]/g, '');
+      newValue = value.replaceAll(/[^A-Za-z\sÀ-ü]/g, '');
       if (
         newValue.length > limitations[id] && !(newValue.length>form.name.length)
       ) return
@@ -89,9 +98,9 @@ export function Form (){
         </Input>
 
         <Checkbox 
-          checked={form.authorization}
+          checked={form.notification}
           onChange={
-            ({currentTarget:{checked}})=>setForm({...form, authorization:checked})
+            ({currentTarget:{checked}})=>setForm({...form, notification:checked})
           }
           text='Eu autorizo um consultor da Smile entrar em contato via WhatsApp'
           id='authorizate'

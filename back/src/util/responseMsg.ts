@@ -14,22 +14,27 @@ export const messageSucess = {
     delete: 'Deletado com sucesso',
 }
 
-export const responseMSG = async (res: ServerResponse, status:number, data:IResponseCreate) =>{
-     res.writeHead(status, { 'Content-Type': 'application/json' });
-     console.log("DATA", data);
-     res.end(JSON.stringify({
-        ...data
-    }));
 
-    return
+
+  const responseMSG = async (res: ServerResponse, status:number, data:IResponseCreate) =>{
+    res.writeHead(status, {'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+       ...data
+   }));
+   return
 }
 
 export const error404 = (res: ServerResponse) =>{
-    res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-       status: false,
-       message: 'Endpoint not found',
-   }));
-
-   return 
+   res.writeHead(404, {'Content-Type': 'application/json' });
+   res.end(JSON.stringify({
+      status: false,
+      message: 'Endpoint not found',
+  }));
+  return 
 }
+
+export const messages = {
+    responseMSG:responseMSG,
+    error404:error404
+}
+
